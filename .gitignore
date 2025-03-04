@@ -1,0 +1,29 @@
+# Java関連
+*.class
+*.jar
+*.war
+*.iml
+
+# IDE関連
+/.idea/
+/*.iml
+/.vscode/
+*.log
+
+# Eclipse
+/.metadata/
+/.classpath
+/.project
+/.settings/
+
+# Maven
+/target/
+/.mvn/
+
+# OS関連
+.DS_Store
+Thumbs.db
+
+# Spring Boot関連
+.env
+application.properties

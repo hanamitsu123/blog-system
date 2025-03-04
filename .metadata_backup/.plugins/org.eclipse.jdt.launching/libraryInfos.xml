@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<libraryInfos>
+    <libraryInfo home="/Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home" version="21.0.5"/>
+    <libraryInfo home="/Applications/Eclipse_2024-12.app/Contents/java/8" version="1.8.0_432">
+        <bootpath>
+            <entry path="/Applications/Eclipse_2024-12.app/Contents/java/8/jre/lib/resources.jar"/>
+            <entry path="/Applications/Eclipse_2024-12.app/Contents/java/8/jre/lib/rt.jar"/>
+            <entry path="/Applications/Eclipse_2024-12.app/Contents/java/8/jre/lib/sunrsasign.jar"/>
+            <entry path="/Applications/Eclipse_2024-12.app/Contents/java/8/jre/lib/jsse.jar"/>
+            <entry path="/Applications/Eclipse_2024-12.app/Contents/java/8/jre/lib/jce.jar"/>
+            <entry path="/Applications/Eclipse_2024-12.app/Contents/java/8/jre/lib/charsets.jar"/>
+            <entry path="/Applications/Eclipse_2024-12.app/Contents/java/8/jre/lib/jfr.jar"/>
+            <entry path="/Applications/Eclipse_2024-12.app/Contents/java/8/jre/classes"/>
+        </bootpath>
+        <extensionDirs>
+            <entry path="/Users/mitsumasa/Library/Java/Extensions"/>
+            <entry path="/Applications/Eclipse_2024-12.app/Contents/java/8/jre/lib/ext"/>
+            <entry path="/Library/Java/Extensions"/>
+            <entry path="/Network/Library/Java/Extensions"/>
+            <entry path="/System/Library/Java/Extensions"/>
+            <entry path="/usr/lib/java"/>
+        </extensionDirs>
+        <endorsedDirs>
+            <entry path="/Applications/Eclipse_2024-12.app/Contents/java/8/jre/lib/endorsed"/>
+        </endorsedDirs>
+    </libraryInfo>
+    <libraryInfo home="/Applications/Eclipse_2024-12.app/Contents/java/17" version="17.0.13"/>
+    <libraryInfo home="/Applications/Eclipse_2024-12.app/Contents/java/11" version="11.0.25"/>
+    <libraryInfo home="/Applications/Eclipse_2024-12.app/Contents/java/21" version="21.0.5"/>
+</libraryInfos>
