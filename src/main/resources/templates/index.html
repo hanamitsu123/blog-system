@@ -1,9 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="UTF-8">
-<title>Blog System</title>
+    <title>ホーム</title>
 </head>
+<body>
+    <h2>ようこそ！</h2>
+    <p th:text="'こんにちは、' + ${#authentication.name} + ' さん！'"></p>
+    <form th:action="@{/auth/logout}" method="post">
+        <button type="submit">ログアウト</button>
+    </form>
+</body>
+</html>
+
 <body>
 	<h1>現在作成中です！</h1>
 </body>
