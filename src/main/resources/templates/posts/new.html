@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新規投稿</title>
+</head>
+<body>
+    <h1>新規投稿</h1>
+    <form th:action="@{/posts}" th:object="${post}" method="post">
+        <label>タイトル:</label>
+        <input type="text" th:field="*{title}" required/>
+        <br/>
+        <label>内容:</label>
+        <textarea th:field="*{content}" required></textarea>
+        <br/>
+        <button type="submit">投稿</button>
+    </form>
+    <br/>
+    <a th:href="@{/posts}">投稿一覧へ戻る</a>
+</body>
+</html>

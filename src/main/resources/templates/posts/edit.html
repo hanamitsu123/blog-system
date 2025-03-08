@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>投稿編集</title>
+</head>
+<body>
+    <h1>投稿編集</h1>
+    <form th:action="@{/posts/{id}(id=${post.id})}" th:object="${post}" method="post">
+        <label>タイトル:</label>
+        <input type="text" th:field="*{title}" required/>
+        <br/>
+        <label>内容:</label>
+        <textarea th:field="*{content}" required></textarea>
+        <br/>
+        <button type="submit">更新</button>
+	</form>
+	<form th:action="@{/posts/{id}/delete(id=${post.id})}" method="post" onsubmit="return confirm('本当に削除しますか？');">
+	        <button type="submit">削除</button>
+	</form>
+	<a th:href="@{/posts/{id}(id=${post.id})}">詳細ページへ戻る</a>
+</body>
+</html>

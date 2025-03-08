@@ -26,7 +26,7 @@ public class AuthController {
 
     @GetMapping("/register")
     public String showRegistrationForm() {
-        return "register"; // `register.html` を表示
+        return "register"; 
     }
 
     @PostMapping("/register")
@@ -46,6 +46,6 @@ public class AuthController {
 
     @GetMapping("/login")
     public String showLoginForm() {
-        return "login"; // `login.html` を表示
+        return "login"; // 
     }
 }

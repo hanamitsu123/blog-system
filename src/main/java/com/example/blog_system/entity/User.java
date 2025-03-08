@@ -14,7 +14,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
-@Table(name = "users") // PostgreSQL の予約語 "user" を避けるため "users" を使用
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -22,15 +22,13 @@ public class User implements UserDetails {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String username;  // ユーザー名
+    private String username;
 
     @Column(nullable = false, unique = true)
-    private String email;     // メールアドレス
+    private String email;
 
     @Column(nullable = false)
-    private String password;  // ハッシュ化されたパスワード
-
-    // --- 明示的にゲッターとセッターを定義 ---
+    private String password; 
 
     public Long getId() {
         return id;
@@ -40,7 +38,6 @@ public class User implements UserDetails {
         this.id = id;
     }
     
-    // username のゲッター・セッター
     @Override
     public String getUsername() {
         return username;
@@ -50,7 +47,6 @@ public class User implements UserDetails {
         this.username = username;
     }
     
-    // email のゲッター・セッター
     public String getEmail() {
         return email;
     }
@@ -59,7 +55,6 @@ public class User implements UserDetails {
         this.email = email;
     }
     
-    // password のゲッター・セッター
     @Override
     public String getPassword() {
         return password;

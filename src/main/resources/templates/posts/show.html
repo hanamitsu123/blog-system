@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>投稿詳細</title>
+</head>
+<body>
+    <h1 th:text="${post.title}">投稿タイトル</h1>
+    <p th:text="${post.content}">投稿内容</p>
+    <p>
+        作成日時: 
+        <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}">日時</span>
+    </p>
+	<a th:href="@{/posts/{id}/edit(id=${post.id})}">編集</a>
+	<a th:href="@{/posts}">投稿一覧へ戻る</a>
+</body>
+</html>
