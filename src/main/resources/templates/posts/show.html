@@ -11,7 +11,25 @@
         作成日時: 
         <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm:ss')}">日時</span>
     </p>
-	<a th:href="@{/posts/{id}/edit(id=${post.id})}">編集</a>
+	<!--編集リンク-->
+	<a th:href="@{/posts/{id}/edit(id=${post.id})}">投稿を編集</a>
+	<h2>コメント一覧</h2>
+	<ul>
+	    <li th:each="comment : ${comments}">
+	        <strong th:text="${comment.username}">ユーザー名</strong>:
+	        <span th:text="${comment.content}">コメント内容</span>
+	        <em th:text="${#temporals.format(comment.createdAt, 'yyyy-MM-dd HH:mm:ss')}">日時</em>
+	    </li>
+	</ul>
+
+	
+	<h2>コメントを投稿する</h2>
+	<form th:action="@{/posts/{postId}/comments(postId=${post.id})}" th:object="${newComment}" method="post">
+	    <label>コメント:</label>
+	    <textarea th:field="*{content}" required></textarea>
+	    <br/>
+	    <button type="submit">投稿</button>
+	</form>
 	<a th:href="@{/posts}">投稿一覧へ戻る</a>
 </body>
 </html>
