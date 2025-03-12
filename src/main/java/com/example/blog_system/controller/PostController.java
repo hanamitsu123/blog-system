@@ -48,7 +48,15 @@ public class PostController {
     // 新規投稿の登録
     @PostMapping
     public String createPost(@ModelAttribute Post post) {
-        postService.save(post);
+        //現在の認証情報からユーザー名を取得
+    	Authentication authentication = SecurityContextHolder.getContext()
+        		.getAuthentication();
+        String currentUsername = authentication.getName();
+    	
+        //投稿にユーザー名をセットする。
+        post.setUsername(currentUsername);
+        
+    	postService.save(post);
         return "redirect:/posts";
     }
 
@@ -59,7 +67,7 @@ public class PostController {
     	if(post == null) {
     		return "redirect:/posts";
     	}
-        model.addAttribute("post", postService.findById(id));
+        model.addAttribute("post", post);
         model.addAttribute("comments", commentService.findByPostId(id));
         model.addAttribute("newComment", new Comment());
         return "posts/show";
@@ -79,14 +87,28 @@ public class PostController {
         postService.save(post);
         return "redirect:/posts";
     }
-
-    // 投稿削除
+    // 投稿削除（投稿者または管理者のみが削除可能）
     @PostMapping("/{id}/delete")
     public String deletePost(@PathVariable Long id) {
+        Post post = postService.findById(id);
+        if (post == null) {
+            return "redirect:/posts";
+        }
+        // 【追加】 現在の認証情報を取得
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        // 【追加】 管理者ロールの確認
+        boolean isAdmin = authentication.getAuthorities().stream()
+            .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+        // 【追加】 投稿したユーザーと一致しない、かつ管理者でなければ削除拒否
+        if (!post.getUsername().equals(currentUsername) && !isAdmin) {
+            return "redirect:/error/403";
+        }
         postService.deleteById(id);
         return "redirect:/posts";
     }
-    
+        
+    //コメント登録
     @PostMapping("/{postId}/comments")
     public String addComment(
             @PathVariable Long postId,
@@ -114,11 +136,10 @@ public class PostController {
         
         // 現在の認証情報からユーザー名を取得
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String username = authentication.getName();  // 通常はユーザー名が返る
+        String username = authentication.getName();
         
         // ユーザー名をコメントにセット
         newComment.setUsername(username);
-        newComment.setPost(post);
         
         // コメントを保存
         commentService.save(newComment);

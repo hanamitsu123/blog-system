@@ -23,7 +23,10 @@ public class Post {
     private String content;
 
     private LocalDateTime createdAt;
-
+    
+    // 追加: 投稿者のユーザー名
+    private String username;
+    
     @PrePersist
     public void prePersist() {
         createdAt = LocalDateTime.now();
