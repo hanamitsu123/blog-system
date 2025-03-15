@@ -1,6 +1,6 @@
 package com.example.blog_system.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +16,11 @@ import com.example.blog_system.service.UserService;
 public class AuthController {
 
     private final UserService userService;
-    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
+
     public AuthController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
-        this.passwordEncoder = passwordEncoder;
+      
     }
 
     @GetMapping("/register")

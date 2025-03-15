@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.PreUpdate;
 
 import lombok.Data;
 @Data
@@ -21,15 +22,21 @@ public class Post {
 
     @Column(length = 10000)
     private String content;
-
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
-    
-    // 追加: 投稿者のユーザー名
+    @Column(nullable = false)
+    private LocalDateTime updatedAt;
     private String username;
     
     @PrePersist
-    public void prePersist() {
+    protected void onCreate() {
         createdAt = LocalDateTime.now();
+        updatedAt = createdAt;
+    }
+
+    @PreUpdate
+    protected void onUpdate() {
+        updatedAt = LocalDateTime.now();
     }
 }
 

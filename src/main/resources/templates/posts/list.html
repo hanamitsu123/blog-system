@@ -1,25 +1,54 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>投稿一覧</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
-          integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" 
-          crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <title>投稿一覧</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" 
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" 
+        crossorigin="anonymous">
 </head>
 <body>
-    <div class="container mt-4">
-        <div class="d-flex justify-content-between align-items-center mb-3">
-            <h1>投稿一覧</h1>
-            <a th:href="@{/posts/new}" class="btn btn-primary">新規投稿</a>
-        </div>
-        <div class="list-group">
-            <div th:each="post : ${posts}" class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                <a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}" class="text-decoration-none"></a>
-            </div>
-        </div>
+  <!-- ナビゲーションバー -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light mb-4">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">ブログシステム</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" 
+              aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/">トップ</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" th:href="@{/posts/new}">新規投稿</a>
+          </li>
+        </ul>
+      </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ENjdO4Dr2bkBIFxQpeoYz1F+36D/d0M/2e1+PqC6eOD1Ishndz0H8En4qB5URyR+" crossorigin="anonymous"></script>
+  </nav>
+
+  <!-- 投稿一覧コンテナ -->
+  <div class="container">
+    <h1 class="mb-4">投稿一覧</h1>
+    <div class="list-group">
+      <div th:each="post : ${posts}" class="list-group-item list-group-item-action">
+        <a th:href="@{/posts/{id}(id=${post.id})}" th:text="${post.title}" class="text-decoration-none"></a>
+        <!-- 投稿者名と投稿日時、更新日時を表示 -->
+        <div class="mt-2">
+          <small class="text-muted">投稿者: <span th:text="${post.username}">投稿者名</span></small>
+          <br>
+          <small class="text-muted">投稿日: <span th:text="${#temporals.format(post.createdAt, 'yyyy-MM-dd HH:mm')}">投稿日時</span></small>        			
+			<br>
+			<small class="text-muted">最終更新日: <span th:text="${#temporals.format(post.updatedAt, 'yyyy-MM-dd HH:mm')}">更新日時</span></small>
+			</div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
+          integrity="sha384-ENjdO4Dr2bkBIFxQpeoYz1F+36D/d0M/2e1+PqC6eOD1Ishndz0H8En4qB5URyR+" 
+          crossorigin="anonymous"></script>
 </body>
 </html>

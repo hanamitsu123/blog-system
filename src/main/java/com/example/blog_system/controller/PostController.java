@@ -87,7 +87,7 @@ public class PostController {
         postService.save(post);
         return "redirect:/posts";
     }
-    // 投稿削除（投稿者または管理者のみが削除可能）
+    // 投稿削除（投稿者のみが削除可能）
     @PostMapping("/{id}/delete")
     public String deletePost(@PathVariable Long id) {
         Post post = postService.findById(id);
@@ -111,8 +111,8 @@ public class PostController {
     //コメント登録
     @PostMapping("/{postId}/comments")
     public String addComment(
-            @PathVariable Long postId,
-            @Valid @ModelAttribute("newComment") Comment newComment,
+            @PathVariable() Long postId,
+            @Valid @ModelAttribute() Comment newComment,
             BindingResult bindingResult,
             Model model) {
         

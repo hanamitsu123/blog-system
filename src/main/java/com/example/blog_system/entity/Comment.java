@@ -1,15 +1,17 @@
 package com.example.blog_system.entity;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrePersist;
+import jakarta.persistence.OneToMany;
 
 import lombok.Data;
 
@@ -20,24 +22,39 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    // コメントの内容
-    @Column(length = 2000)
+    
+    private String title;
     private String content;
-
-    // コメント作成日時
-    private LocalDateTime createdAt;
-
-    // コメントを投稿したユーザー名（必要に応じて User エンティティとのリレーションも実装できます）
     private String username;
-
-    // コメントがどの投稿に紐付くか (多対一のリレーション)
-    @ManyToOne
-    @JoinColumn(name = "post_id")
+    
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    
+    // Comment が持つ Post へのリレーションを定義
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id") // 外部キーのカラム名
     private Post post;
-
-    @PrePersist
-    public void prePersist() {
-        createdAt = LocalDateTime.now();
+    
+    // 自身の子コメント（もし必要なら）
+    @OneToMany(mappedBy = "parentComment", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> comments;
+    
+    // コメントが親コメントを持つ場合（もし必要なら）
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "parent_comment_id")
+    private Comment parentComment;
+    
+    // Post自身の更新日時と関連するコメントの作成日時から、最新の日時を返す
+    public LocalDateTime getLatestUpdate() {
+        LocalDateTime latest = (updatedAt != null) ? updatedAt : createdAt;
+        if (comments != null) {
+            for (Comment comment : comments) {
+                LocalDateTime commentTime = comment.getCreatedAt();
+                if (commentTime != null && commentTime.isAfter(latest)) {
+                    latest = commentTime;
+                }
+            }
+        }
+        return latest;
     }
 }
