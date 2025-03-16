@@ -19,7 +19,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/auth/register", "/auth/login").permitAll()
+                .requestMatchers("/auth/register", "/auth/login", "/error/**").permitAll()
                 .anyRequest().authenticated()
             )
             .formLogin(login -> login
@@ -30,9 +30,12 @@ public class SecurityConfig {
                 .permitAll()
             )
             .logout(logout -> logout
-                .logoutUrl("/auth/logout")
+                .logoutUrl("/logout")
                 .logoutSuccessUrl("/auth/login?logout")
-            );
+            )
+            .exceptionHandling(exception -> exception
+                    .accessDeniedPage("/403")
+                );
 
         return http.build();
     }
