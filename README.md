@@ -1,6 +1,6 @@
-#ID:test@gmail.com
-#PW:test
-#★★テストログインには上記ID及びPWを使用してください。★★
+# ID:test@gmail.com
+# PW:test
+# ★★テストログインには上記ID及びPWを使用してください。★★
 
 ## ブログシステム
 
